@@ -19,8 +19,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install
-          npx playwright install --with-deps
+          npm ci || npm install
+          npx playwright install --with-deps chromium
 
-      - name: Run Playwright script 23f1000184@ds.study.iitm.ac.in
+      - name: Run script 23f1000184@ds.study.iitm.ac.in
         run: node sumTables.js
