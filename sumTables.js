@@ -26,6 +26,6 @@ const seeds = [36,37,38,39,40,41,42,43,44,45];
     totalSum += sum;
   }
 
-  console.log(`TOTAL: ${total}`);
+  console.log(`TOTAL: ${totalSum}`);
   await browser.close();
 })();
