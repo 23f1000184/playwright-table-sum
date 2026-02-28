@@ -11,19 +11,19 @@ const seeds = [36,37,38,39,40,41,42,43,44,45];
   for (const seed of seeds) {
     const url = `https://sanand0.github.io/tdsdata/table_sum.html?seed=${seed}`;
 
-    // wait for full render
     await page.goto(url, { waitUntil: "networkidle" });
 
-    // ensure table exists
-    await page.waitForSelector("table");
+    // get all visible text and extract numbers
+    const numbers = await page.evaluate(() => {
+      const text = document.body.innerText;
+      return text
+        .split(/\s+/)
+        .map(n => Number(n))
+        .filter(n => !isNaN(n));
+    });
 
-    const numbers = await page.$$eval("table td", tds =>
-      tds
-        .map(td => Number(td.textContent.trim()))
-        .filter(n => !isNaN(n))
-    );
-
-    totalSum += numbers.reduce((a, b) => a + b, 0);
+    const sum = numbers.reduce((a, b) => a + b, 0);
+    totalSum += sum;
   }
 
   console.log(`TOTAL_SUM: ${totalSum}`);
